@@ -47,9 +47,33 @@ public class AudioFile
 		double secDuration = (frames+0.0)/format.getFrameRate();
 		setDelay(600);
 		setSpace(150);
-		setIterations((int)secDuration*1000/this.space);
-		setFile_bytes((int)this.file.length());
-		setByte_space(this.file_bytes/this.iterations);
+		setIterations((int)secDuration*1000/getSpace());
+		setFile_bytes((int)getFile().length());
+		setByte_space(getFile_bytes()/getIterations());
+	}
+	
+	public AudioFile(String path, int delay, int space)
+	{
+		setSong(path);
+		setResource(getClass().getResource(getSong()));
+		setFile((new File(this.resource.getPath())));
+		setClip(new AudioClip(this.resource.toString()));
+		AudioInputStream aInStream = null;
+		try {
+			aInStream = AudioSystem.getAudioInputStream(this.file);
+		} catch (UnsupportedAudioFileException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		AudioFormat format = aInStream.getFormat();
+		long frames = aInStream.getFrameLength();
+		double secDuration = (frames+0.0)/format.getFrameRate();
+		setDelay(delay);
+		setSpace(space);
+		setIterations((int)secDuration*1000/getSpace());
+		setFile_bytes((int)getFile().length());
+		setByte_space(getFile_bytes()/getIterations());
 	}
 	
 	public AudioFile(AudioFile other)

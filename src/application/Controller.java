@@ -90,7 +90,7 @@ public class Controller
 	AudioFile chronos = new AudioFile("/music/chronosWav.wav");
 	AudioFile longLive = new AudioFile("/music/LongLiveTheNewFreshWav.wav");
 	AudioFile dest = new AudioFile("/music/DestatiFragments.wav");
-	AudioFile intoTheNight = new AudioFile("/music/intoTheNight.wav");
+	AudioFile intoTheNight = new AudioFile("/music/intoTheNight.wav", 0, 200);
 	AudioFile mainFile = new AudioFile();
 	private boolean colorSwitch;
 	
@@ -209,7 +209,6 @@ public class Controller
 		}
 		else if(intoWav.isSelected())
 		{
-			intoTheNight.setSpace(200);
 			return intoTheNight;
 		}
 		else
@@ -257,7 +256,6 @@ public class Controller
 		rects.add(b14);
 		rects.add(b15);
 		rects.add(b16);
-
 		return rects;
 	}
 
@@ -296,8 +294,8 @@ public class Controller
 						value[count] - value[count
 								- 1]);
 			}
-			System.out.println(count + ": "
-					+ (byteArray[i] + 128) / 16);
+			//System.out.println(count + ": "
+				//	+ (byteArray[i] + 128) / 16);
 			count++;
 		}
 		return value;
