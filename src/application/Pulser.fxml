@@ -45,6 +45,8 @@
                   </RadioMenuItem>
                   <RadioMenuItem fx:id="longLiveBtn" mnemonicParsing="false" text="Long Live the New Fresh" toggleGroup="$songs" />
                   <RadioMenuItem fx:id="logicGateSong" mnemonicParsing="false" text="Logic Gate" toggleGroup="$songs" />
+                  <RadioMenuItem fx:id="destBtn" mnemonicParsing="false" text="Dest" toggleGroup="$songs" />
+                  <RadioMenuItem fx:id="intoWav" mnemonicParsing="false" text="Into The Night" toggleGroup="$songs" />
                </items>
             </Menu>
         </menus>

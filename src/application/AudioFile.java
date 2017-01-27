@@ -22,30 +22,15 @@ public class AudioFile
 	private int space; //Space between when the lights will be shown
 	private int file_bytes; //File Size
 	private int byte_space; //how far to space out the bytes
-
-
 	
 	public AudioFile()
 	{
 		super();
 	}
 	
-	public AudioFile(AudioFile other)
-	{
-		setSong(other.getSong());
-		setResource(other.getResource());
-		setFile(other.getFile());
-		setClip(other.getClip());
-		setDelay(other.getDelay());
-		setIterations(other.getIterations());
-		setSpace(other.getSpace());
-		setFile_bytes(other.getFile_bytes());
-		setByte_space(other.getByte_space());
-	}
-
 	public AudioFile(String path)
 	{
-		this.song = path;
+		setSong(path);
 		setResource(getClass().getResource(getSong()));
 		setFile((new File(this.resource.getPath())));
 		setClip(new AudioClip(this.resource.toString()));
@@ -66,6 +51,21 @@ public class AudioFile
 		setFile_bytes((int)this.file.length());
 		setByte_space(this.file_bytes/this.iterations);
 	}
+	
+	public AudioFile(AudioFile other)
+	{
+		setSong(other.getSong());
+		setResource(other.getResource());
+		setFile(other.getFile());
+		setClip(other.getClip());
+		setDelay(other.getDelay());
+		setIterations(other.getIterations());
+		setSpace(other.getSpace());
+		setFile_bytes(other.getFile_bytes());
+		setByte_space(other.getByte_space());
+	}
+
+	
 
 	public int getSpace() {
 		return space;
