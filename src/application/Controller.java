@@ -111,7 +111,7 @@ public class Controller
 	@FXML
 	public void exitApplication(ActionEvent event)
 	{
-		clip.stop();
+		getClip().stop();
 		Platform.exit();
 	}
 	
@@ -128,10 +128,8 @@ public class Controller
 		try {
 			aInStream = AudioSystem.getAudioInputStream(getChronos());
 		} catch (UnsupportedAudioFileException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		AudioFormat format = aInStream.getFormat();
@@ -158,10 +156,8 @@ public class Controller
 			try {
 				aInStream = AudioSystem.getAudioInputStream(getChronos());
 			} catch (UnsupportedAudioFileException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			AudioFormat format = aInStream.getFormat();
@@ -184,10 +180,8 @@ public class Controller
 			try {
 				aInStream = AudioSystem.getAudioInputStream(getChronos());
 			} catch (UnsupportedAudioFileException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			AudioFormat format = aInStream.getFormat();
