@@ -120,7 +120,7 @@ public class Controller
 		setClip(new AudioClip(getResource().toString()));
 		setIterations(1793);
 		setSpace(150);
-		setFile_bytes(47587067);
+		setFile_bytes((int)getChronos().length());
 		setByte_space(file_bytes/iterations);
 	}	
 	
@@ -135,7 +135,7 @@ public class Controller
 			setClip(new AudioClip(getResource().toString()));
 			setIterations(1066);
 			setSpace(150);
-			setFile_bytes(28334844);
+			setFile_bytes((int)getChronos().length());
 			setByte_space(file_bytes/iterations);
 		}
 		if(chronosBtn.isSelected())
@@ -147,7 +147,7 @@ public class Controller
 			setClip(new AudioClip(getResource().toString()));
 			setIterations(1793);
 			setSpace(150);
-			setFile_bytes(47587067);
+			setFile_bytes((int)getChronos().length());
 			setByte_space(file_bytes/iterations);
 		}
 	}
