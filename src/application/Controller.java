@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -118,10 +123,26 @@ public class Controller
 		setResource(getClass().getResource(getSong()));
 		setChronos(new File(getResource().getPath()));
 		setClip(new AudioClip(getResource().toString()));
-		setIterations(1793);
+		setFile_bytes((int)getChronos().length()); //file size
+		AudioInputStream aInStream = null;
+		try {
+			aInStream = AudioSystem.getAudioInputStream(getChronos());
+		} catch (UnsupportedAudioFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		AudioFormat format = aInStream.getFormat();
+		long frames = aInStream.getFrameLength();
+		double secDuration = (frames+0.0)/format.getFrameRate();
 		setSpace(150);
-		setFile_bytes((int)getChronos().length());
-		setByte_space(file_bytes/iterations);
+		//setIterations(2860);
+		setIterations((int)secDuration*1000/getSpace());
+		setByte_space(getFile_bytes()/getIterations());
+		
+				
 	}	
 	
 	private void data()
@@ -133,10 +154,23 @@ public class Controller
 			setResource(getClass().getResource(getSong()));
 			setChronos(new File(getResource().getPath()));
 			setClip(new AudioClip(getResource().toString()));
-			setIterations(1066);
+			AudioInputStream aInStream = null;
+			try {
+				aInStream = AudioSystem.getAudioInputStream(getChronos());
+			} catch (UnsupportedAudioFileException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			AudioFormat format = aInStream.getFormat();
+			long frames = aInStream.getFrameLength();
+			double secDuration = (frames+0.0)/format.getFrameRate();			
+			setIterations((int)secDuration*1000/getSpace());
 			setSpace(150);
 			setFile_bytes((int)getChronos().length());
-			setByte_space(file_bytes/iterations);
+			setByte_space(getFile_bytes()/getIterations());
 		}
 		if(chronosBtn.isSelected())
 		{
@@ -145,10 +179,24 @@ public class Controller
 			setResource(getClass().getResource(getSong()));
 			setChronos(new File(getResource().getPath()));
 			setClip(new AudioClip(getResource().toString()));
-			setIterations(1793);
+			setFile_bytes((int)getChronos().length()); //file size
+			AudioInputStream aInStream = null;
+			try {
+				aInStream = AudioSystem.getAudioInputStream(getChronos());
+			} catch (UnsupportedAudioFileException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			AudioFormat format = aInStream.getFormat();
+			long frames = aInStream.getFrameLength();
+			double secDuration = (frames+0.0)/format.getFrameRate();
 			setSpace(150);
-			setFile_bytes((int)getChronos().length());
-			setByte_space(file_bytes/iterations);
+			//setIterations(2860);
+			setIterations((int)secDuration*1000/getSpace());
+			setByte_space(getFile_bytes()/getIterations());
 		}
 	}
 
