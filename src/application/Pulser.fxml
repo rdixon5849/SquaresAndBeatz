@@ -44,6 +44,7 @@
                      </toggleGroup>
                   </RadioMenuItem>
                   <RadioMenuItem fx:id="longLiveBtn" mnemonicParsing="false" text="Long Live the New Fresh" toggleGroup="$songs" />
+                  <RadioMenuItem fx:id="logicGateSong" mnemonicParsing="false" text="Logic Gate" toggleGroup="$songs" />
                </items>
             </Menu>
         </menus>

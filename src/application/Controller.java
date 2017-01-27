@@ -9,11 +9,6 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -82,6 +77,8 @@ public class Controller
 	RadioMenuItem chronosBtn;
 	@FXML
 	RadioMenuItem longLiveBtn;
+	@FXML
+	RadioMenuItem logicGateSong;
 
 
 	/*
@@ -89,9 +86,13 @@ public class Controller
 	 * song works
 	 * URL resource: location of file
 	 */
+	AudioFile logicGate = new AudioFile("/music/logicGateKeeper.wav");
+	AudioFile chronos = new AudioFile("/music/chronosWav.wav");
+	AudioFile longLive = new AudioFile("/music/LongLiveTheNewFreshWav.wav");
+	AudioFile mainFile = new AudioFile();
 	private String song; //song to be used
 	private URL resource; //url of song
-	private File chronos; //file name
+	private File audioFi; //file name
 	private AudioClip clip; //audio clip
 	private int delay; //the delay necessary for the song and colors to match
 	private int iterations; //the space of how many spaces in the array to be skipped and used
@@ -118,27 +119,15 @@ public class Controller
 	@FXML
 	public void initialize()
 	{
-		setDelay(600);
-		setSong("/music/chronosWav.wav");
-		setResource(getClass().getResource(getSong()));
-		setChronos(new File(getResource().getPath()));
-		setClip(new AudioClip(getResource().toString()));
-		setFile_bytes((int)getChronos().length()); //file size
-		AudioInputStream aInStream = null;
-		try {
-			aInStream = AudioSystem.getAudioInputStream(getChronos());
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		AudioFormat format = aInStream.getFormat();
-		long frames = aInStream.getFrameLength();
-		double secDuration = (frames+0.0)/format.getFrameRate();
-		setSpace(150);
-		//setIterations(2860);
-		setIterations((int)secDuration*1000/getSpace());
-		setByte_space(getFile_bytes()/getIterations());
+		setDelay(chronos.getDelay());
+		setSong(chronos.getSong());
+		setResource(chronos.getResource());
+		setAudioFi(chronos.getFile());
+		setClip(chronos.getClip());
+		setFile_bytes(chronos.getFile_bytes());
+		setSpace(chronos.getSpace());
+		setIterations(chronos.getIterations());
+		setByte_space(chronos.getByte_space());
 		
 				
 	}	
@@ -147,50 +136,39 @@ public class Controller
 	{
 		if (longLiveBtn.isSelected())
 		{
-			setDelay(1200);
-			setSong("/music/LongLiveTheNewFreshWav.wav");
-			setResource(getClass().getResource(getSong()));
-			setChronos(new File(getResource().getPath()));
-			setClip(new AudioClip(getResource().toString()));
-			AudioInputStream aInStream = null;
-			try {
-				aInStream = AudioSystem.getAudioInputStream(getChronos());
-			} catch (UnsupportedAudioFileException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			AudioFormat format = aInStream.getFormat();
-			long frames = aInStream.getFrameLength();
-			double secDuration = (frames+0.0)/format.getFrameRate();			
-			setIterations((int)secDuration*1000/getSpace());
-			setSpace(150);
-			setFile_bytes((int)getChronos().length());
-			setByte_space(getFile_bytes()/getIterations());
+			setDelay(longLive.getDelay()+600);
+			setSong(longLive.getSong());
+			setResource(longLive.getResource());
+			setAudioFi(longLive.getFile());
+			setClip(longLive.getClip());
+			setFile_bytes(longLive.getFile_bytes());
+			setSpace(longLive.getSpace());
+			setIterations(longLive.getIterations());
+			setByte_space(longLive.getByte_space());
 		}
 		if(chronosBtn.isSelected())
 		{
-			setDelay(600);
-			setSong("/music/chronosWav.wav");
-			setResource(getClass().getResource(getSong()));
-			setChronos(new File(getResource().getPath()));
-			setClip(new AudioClip(getResource().toString()));
-			setFile_bytes((int)getChronos().length()); //file size
-			AudioInputStream aInStream = null;
-			try {
-				aInStream = AudioSystem.getAudioInputStream(getChronos());
-			} catch (UnsupportedAudioFileException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			AudioFormat format = aInStream.getFormat();
-			long frames = aInStream.getFrameLength();
-			double secDuration = (frames+0.0)/format.getFrameRate();
-			setSpace(150);
-			//setIterations(2860);
-			setIterations((int)secDuration*1000/getSpace());
-			setByte_space(getFile_bytes()/getIterations());
+			setDelay(chronos.getDelay());
+			setSong(chronos.getSong());
+			setResource(chronos.getResource());
+			setAudioFi(chronos.getFile());
+			setClip(chronos.getClip());
+			setFile_bytes(chronos.getFile_bytes());
+			setSpace(chronos.getSpace());
+			setIterations(chronos.getIterations());
+			setByte_space(chronos.getByte_space());
+		}
+		if(logicGateSong.isSelected())
+		{
+			setDelay(logicGate.getDelay()+600);
+			setSong(logicGate.getSong());
+			setResource(logicGate.getResource());
+			setAudioFi(logicGate.getFile());
+			setClip(logicGate.getClip());
+			setFile_bytes(logicGate.getFile_bytes());
+			setSpace(logicGate.getSpace());
+			setIterations(logicGate.getIterations());
+			setByte_space(logicGate.getByte_space());
 		}
 	}
 
@@ -321,7 +299,7 @@ public class Controller
 		try
 		{
 			fileInStream = new FileInputStream(
-					getChronos());
+					getAudioFi());
 		} catch (FileNotFoundException e1)
 		{
 			e1.printStackTrace();
@@ -422,14 +400,14 @@ public class Controller
 		this.resource = resource;
 	}
 
-	public File getChronos()
+	public File getAudioFi()
 	{
-		return chronos;
+		return audioFi;
 	}
 
-	public void setChronos(File chronos)
+	public void setAudioFi(File chronos)
 	{
-		this.chronos = chronos;
+		this.audioFi = chronos;
 	}
 
 	public AudioClip getClip()

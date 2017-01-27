@@ -23,6 +23,26 @@ public class AudioFile
 	private int file_bytes; //File Size
 	private int byte_space; //how far to space out the bytes
 
+
+	
+	public AudioFile()
+	{
+		super();
+	}
+	
+	public AudioFile(AudioFile other)
+	{
+		setSong(other.getSong());
+		setResource(other.getResource());
+		setFile(other.getFile());
+		setClip(other.getClip());
+		setDelay(other.getDelay());
+		setIterations(other.getIterations());
+		setSpace(other.getSpace());
+		setFile_bytes(other.getFile_bytes());
+		setByte_space(other.getByte_space());
+	}
+
 	public AudioFile(String path)
 	{
 		this.song = path;
