@@ -49,6 +49,16 @@
                   <RadioMenuItem fx:id="intoWav" mnemonicParsing="false" text="Into The Night" toggleGroup="$songs" />
                </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Functions">
+               <items>
+                  <RadioMenuItem fx:id="pcmBtn" mnemonicParsing="false" selected="true" text="Standard PCM">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="funcs" />
+                     </toggleGroup>
+                  </RadioMenuItem>
+                  <RadioMenuItem fx:id="diffBtn" mnemonicParsing="false" text="Differental PCM" toggleGroup="$funcs" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
       <Rectangle fx:id="b1" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="60.0" layoutY="120.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />

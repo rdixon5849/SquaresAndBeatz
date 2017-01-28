@@ -80,11 +80,14 @@ public class Controller
 	RadioMenuItem destBtn;
 	@FXML
 	RadioMenuItem intoWav;
+	@FXML
+	RadioMenuItem diffBtn;
+	@FXML
+	RadioMenuItem pcmBtn;
 
 	/*
 	 * The Audio file and all of its data to be used for this version only this
-	 * song works
-	 * URL resource: location of file
+	 * song works URL resource: location of file
 	 */
 	AudioFile logicGate = new AudioFile("/music/logicGateKeeper.wav");
 	AudioFile chronos = new AudioFile("/music/chronosWav.wav");
@@ -93,67 +96,68 @@ public class Controller
 	AudioFile intoTheNight = new AudioFile("/music/intoTheNight.wav", 0, 200);
 	AudioFile mainFile = new AudioFile();
 	private boolean colorSwitch;
-	
-	Paint black = Paint.valueOf("black"); //Color needed to repaint squares
-	private ArrayList<Rectangle> rects = new ArrayList<Rectangle>(
-			16); //arraylist of the rectangles used
 
-	  //audio clip to be used to play
-	Timer timee = new Timer(); //a timer to do the light show!
+	Paint black = Paint.valueOf("black"); // Color needed to repaint squares
+	private ArrayList<Rectangle> rects = new ArrayList<Rectangle>(16); // arraylist
+																		// of
+																		// the
+																		// rectangles
+																		// used
 
-	//Method to stop sound from continuing after application closes
+	// audio clip to be used to play
+	Timer timee = new Timer(); // a timer to do the light show!
+
+	// Method to stop sound from continuing after application closes
 	@FXML
 	public void exitApplication(ActionEvent event)
 	{
 		mainFile.getClip().stop();
 		Platform.exit();
 	}
-	
+
 	@FXML
 	public void initialize()
 	{
-		mainFile=new AudioFile(chronos);				
-	}	
-	
-	//Method to determine the color of the squares
+		mainFile = new AudioFile(chronos);
+	}
+
+	// Method to determine the color of the squares
 	private String paintColor()
 	{
+		setColorSwitch(false);
 		String color = "yellow";
 		if (redColor.isSelected())
 			color = "red";
 		else if (blueColor.isSelected())
 			color = "blue";
-		else if(greenColor.isSelected())
+		else if (greenColor.isSelected())
 			color = "green";
-		else if(pinkColor.isSelected())
+		else if (pinkColor.isSelected())
 			color = "pink";
-		else if(rainbowColor.isSelected())
+		else if (rainbowColor.isSelected())
 		{
 			setColorSwitch(true);
-		}
-		else
+		} else
 			color = "yellow";
 		return color;
 	}
 
-	//Method that runs the code and makes the lights light up
+	// Method that runs the code and makes the lights light up
 	public void makeTime(ActionEvent event)
 	{
-		//data();
 		mainFile = new AudioFile(getSelectedFile());
-		Paint currentPaint = Paint
-				.valueOf(paintColor());
+		Paint currentPaint = Paint.valueOf(paintColor());
 		btn1.setDisable(true);
 		btn2.setDisable(false);
 		mainFile.getClip().play();
 		rects = fillArray();
-		// int pulseVals[] = pulseVal();
-		int pulseVals[] = pulseValSub();
-		Paint[] currentPaints = {Paint.valueOf("red"), Paint.valueOf("orange"), Paint.valueOf("yellow"), Paint.valueOf("green"), Paint.valueOf("blue"), Paint.valueOf("purple")};
+		int pulseVals[] = pulseVal();
+		Paint[] currentPaints = { Paint.valueOf("red"), Paint.valueOf("orange"), Paint.valueOf("yellow"),
+				Paint.valueOf("green"), Paint.valueOf("blue"), Paint.valueOf("purple") };
 		TimerTask task = new TimerTask()
 		{
 			int count = 0;
-			
+
 			public void run()
 			{
 				for (Rectangle rect : rects)
@@ -163,14 +167,12 @@ public class Controller
 						rect.setFill(black);
 					}
 				}
-				if(!isColorSwitch())
+				if (!isColorSwitch())
 				{
-				rects.get(pulseVals[count])
-						.setFill(currentPaint);
-				}
-				else
+					rects.get(pulseVals[count]).setFill(currentPaint);
+				} else
 				{
-					rects.get(pulseVals[count]).setFill(currentPaints[count%6]);
+					rects.get(pulseVals[count]).setFill(currentPaints[count % 6]);
 				}
 				count++;
 				if (count >= mainFile.getIterations())
@@ -185,37 +187,33 @@ public class Controller
 
 		};
 		timee = new Timer();
-		timee.schedule(task, (long) mainFile.getDelay(),
-				(long) mainFile.getSpace());
+		timee.schedule(task, (long) mainFile.getDelay(), (long) mainFile.getSpace());
 	}
 
-	//Method that knows what file to play
-	private AudioFile getSelectedFile() 
+	// Method that knows what file to play
+	private AudioFile getSelectedFile()
 	{
-		if(logicGateSong.isSelected())
+		if (logicGateSong.isSelected())
 		{
 			logicGate.setDelay(1200);
-			return  logicGate;
-		}
-		else if(destBtn.isSelected())
+			return logicGate;
+		} else if (destBtn.isSelected())
 		{
-			dest.setSpace(200);;
+			dest.setSpace(200);
+			;
 			return dest;
-		}
-		else if(longLiveBtn.isSelected())
+		} else if (longLiveBtn.isSelected())
 		{
 			longLive.setDelay(1200);
 			return longLive;
-		}
-		else if(intoWav.isSelected())
+		} else if (intoWav.isSelected())
 		{
 			return intoTheNight;
-		}
-		else
+		} else
 			return chronos;
 	}
 
-	//Method to interrupt the timer and sound if you want to.
+	// Method to interrupt the timer and sound if you want to.
 	public void interrupt(ActionEvent event)
 	{
 		timee.cancel();
@@ -231,13 +229,13 @@ public class Controller
 		btn2.setDisable(true);
 	}
 
-	//simple close for File -> Close button
+	// simple close for File -> Close button
 	public void onClose(ActionEvent event)
 	{
 		System.exit(0);
 	}
 
-	//Way to fill the array with the rectangles
+	// Way to fill the array with the rectangles
 	private ArrayList<Rectangle> fillArray()
 	{
 		rects.add(b1);
@@ -261,14 +259,13 @@ public class Controller
 
 	// Like pulseVal() method but instead finds the difference between values of
 	// pulses and displays them.
-	private int[] pulseValSub()
+	private int[] pulseVal()
 	{
 		byte[] byteArray = new byte[mainFile.getFile_bytes()];
 		FileInputStream fileInStream = null;
 		try
 		{
-			fileInStream = new FileInputStream(
-					mainFile.getFile());
+			fileInStream = new FileInputStream(mainFile.getFile());
 		} catch (FileNotFoundException e1)
 		{
 			e1.printStackTrace();
@@ -281,32 +278,55 @@ public class Controller
 			e.printStackTrace();
 		}
 
-		int count = 0;
 		int value[] = new int[mainFile.getIterations() + 1];
-		for (int i = 0; i < byteArray.length; i = i
-				+ mainFile.getByte_space())
+
+		if (diffBtn.isSelected())
 		{
-			value[count] = (byteArray[i] + 128)
-					/ 16;
+			value = diffVal(value, byteArray);
+		} else
+		{
+			value = pcmVal(value, byteArray);
+		}
+		return value;
+	}
+
+	private int[] diffVal(int[] value, byte[] byteArray)
+	{
+		int count = 0;
+		for (int i = 0; i < byteArray.length; i = i + mainFile.getByte_space())
+		{
+			// storing the values to be displayed
+			value[count] = (byteArray[i] + 128) / 16;
 			if (count != 0)
 			{
-				value[count] = Math.abs(
-						value[count] - value[count
-								- 1]);
+				value[count] = Math.abs(value[count] - value[count - 1]);
 			}
-			//System.out.println(count + ": "
-				//	+ (byteArray[i] + 128) / 16);
+			// System.out.println(count + ": "
+			// + (byteArray[i] + 128) / 16);
 			count++;
 		}
 		return value;
 	}
-	
-	
-	public boolean isColorSwitch() {
+
+	private int[] pcmVal(int[] value, byte[] byteArray)
+	{
+		int count = 0;
+		for (int i = 0; i < byteArray.length; i = i + mainFile.getByte_space())
+		{
+			// storing the values to be displayed
+			value[count] = (byteArray[i] + 128) / 16;
+			count++;
+		}
+		return value;
+	}
+
+	public boolean isColorSwitch()
+	{
 		return colorSwitch;
 	}
 
-	public void setColorSwitch(boolean colorSwitch) {
+	public void setColorSwitch(boolean colorSwitch)
+	{
 		this.colorSwitch = colorSwitch;
 	}
 
