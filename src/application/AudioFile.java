@@ -14,6 +14,7 @@ import javafx.scene.media.AudioClip;
 public class AudioFile
 {
 	private String song; //song to be used
+	private String name; //Name of the song
 	private URL resource; //url of song
 	private File file; //file name
 	private AudioClip clip; //audio clip
@@ -31,6 +32,7 @@ public class AudioFile
 	public AudioFile(String path)
 	{
 		setSong(path);
+		setName(path.substring(7));
 		setResource(getClass().getResource(getSong()));
 		setFile((new File(this.resource.getPath())));
 		setClip(new AudioClip(this.resource.toString()));
@@ -52,9 +54,10 @@ public class AudioFile
 		setByte_space(getFile_bytes()/getIterations());
 	}
 	
-	public AudioFile(String path, int delay, int space)
+	public AudioFile(String path, int delay, int space, String name)
 	{
 		setSong(path);
+		setName(name);
 		setResource(getClass().getResource(getSong()));
 		setFile((new File(this.resource.getPath())));
 		setClip(new AudioClip(this.resource.toString()));
@@ -79,6 +82,7 @@ public class AudioFile
 	public AudioFile(AudioFile other)
 	{
 		setSong(other.getSong());
+		setName(other.getName());
 		setResource(other.getResource());
 		setFile(other.getFile());
 		setClip(other.getClip());
@@ -161,5 +165,15 @@ public class AudioFile
 
 	public void setDelay(int delay) {
 		this.delay = delay;
+	}
+
+	public String getName()
+	{
+		return name;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
 	}
 }
