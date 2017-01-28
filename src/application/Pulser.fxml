@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -32,7 +33,6 @@
                   <RadioMenuItem fx:id="blueColor" mnemonicParsing="false" text="Blue" toggleGroup="$colours" />
                   <RadioMenuItem fx:id="redColor" mnemonicParsing="false" text="Red" toggleGroup="$colours" />
                   <RadioMenuItem fx:id="greenColor" mnemonicParsing="false" text="Green" toggleGroup="$colours" />
-                  <RadioMenuItem fx:id="pinkColor" mnemonicParsing="false" text="Pink" toggleGroup="$colours" />
                   <RadioMenuItem fx:id="rainbowColor" mnemonicParsing="false" text="Rainbow!" toggleGroup="$colours" />
             </items>
           </Menu>
@@ -51,7 +51,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Functions">
                <items>
-                  <RadioMenuItem fx:id="pcmBtn" mnemonicParsing="false" selected="true" text="Standard PCM">
+                  <RadioMenuItem fx:id="pcmBtn" mnemonicParsing="false" text="Standard PCM">
                      <toggleGroup>
                         <ToggleGroup fx:id="funcs" />
                      </toggleGroup>
@@ -61,23 +61,28 @@
             </Menu>
         </menus>
       </MenuBar>
-      <Rectangle fx:id="b1" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="60.0" layoutY="120.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="b2" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="140.0" layoutY="120.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="b3" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="220.0" layoutY="120.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="b4" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="300.0" layoutY="120.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="b5" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="60.0" layoutY="200.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="b6" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="140.0" layoutY="200.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="b7" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="220.0" layoutY="200.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="b8" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="300.0" layoutY="200.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="b9" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="60.0" layoutY="280.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="b10" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="140.0" layoutY="280.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="b11" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="220.0" layoutY="280.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="b12" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="300.0" layoutY="280.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="b13" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="60.0" layoutY="360.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="b14" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="140.0" layoutY="360.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="b15" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="220.0" layoutY="360.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="b16" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="300.0" layoutY="360.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
+      <Rectangle fx:id="b1" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="60.0" layoutY="120.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="290.0" AnchorPane.topAnchor="120.0" />
+      <Rectangle fx:id="b2" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="140.0" layoutY="120.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="120.0" />
+      <Rectangle fx:id="b3" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="220.0" layoutY="120.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="120.0" />
+      <Rectangle fx:id="b4" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="300.0" layoutY="120.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0" />
+      <Rectangle fx:id="b5" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="60.0" layoutY="200.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="290.0" AnchorPane.topAnchor="200.0" />
+      <Rectangle fx:id="b6" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="140.0" layoutY="200.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="200.0" />
+      <Rectangle fx:id="b7" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="220.0" layoutY="200.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="200.0" />
+      <Rectangle fx:id="b8" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="300.0" layoutY="200.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="200.0" />
+      <Rectangle fx:id="b9" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="60.0" layoutY="280.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="290.0" AnchorPane.topAnchor="280.0" />
+      <Rectangle fx:id="b10" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="140.0" layoutY="280.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="280.0" />
+      <Rectangle fx:id="b11" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="220.0" layoutY="280.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="280.0" />
+      <Rectangle fx:id="b12" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="300.0" layoutY="280.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="280.0" />
+      <Rectangle fx:id="b13" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="60.0" layoutY="360.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="290.0" AnchorPane.topAnchor="360.0" />
+      <Rectangle fx:id="b14" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="140.0" layoutY="360.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="360.0" />
+      <Rectangle fx:id="b15" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="220.0" layoutY="360.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="360.0" />
+      <Rectangle fx:id="b16" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="300.0" layoutY="360.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="360.0" />
       <Button fx:id="btn1" defaultButton="true" layoutX="166.0" layoutY="478.0" mnemonicParsing="false" onAction="#makeTime" text="Play Song" />
       <Button fx:id="btn2" disable="true" layoutX="182.0" layoutY="527.0" mnemonicParsing="false" onAction="#interrupt" text="End" />
+      <Label fx:id="nameText" alignment="CENTER" layoutX="173.0" layoutY="49.0" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -11,6 +11,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -67,8 +68,6 @@ public class Controller
 	@FXML
 	RadioMenuItem greenColor;
 	@FXML
-	RadioMenuItem pinkColor;
-	@FXML
 	RadioMenuItem rainbowColor;
 	@FXML
 	RadioMenuItem chronosBtn;
@@ -84,26 +83,23 @@ public class Controller
 	RadioMenuItem diffBtn;
 	@FXML
 	RadioMenuItem pcmBtn;
+	@FXML
+	Label nameText;
 
 	/*
 	 * The Audio file and all of its data to be used for this version only this
 	 * song works URL resource: location of file
 	 */
-	AudioFile logicGate = new AudioFile("/music/logicGateKeeper.wav");
+	AudioFile logicGate = new AudioFile("/music/logicGateKeeper.wav",0,150, "Logic GateKeeper");
 	AudioFile chronos = new AudioFile("/music/chronosWav.wav");
 	AudioFile longLive = new AudioFile("/music/LongLiveTheNewFreshWav.wav");
 	AudioFile dest = new AudioFile("/music/DestatiFragments.wav");
-	AudioFile intoTheNight = new AudioFile("/music/intoTheNight.wav", 0, 200);
+	AudioFile intoTheNight = new AudioFile("/music/intoTheNight.wav", 0, 200, "Into the Night");
 	AudioFile mainFile = new AudioFile();
 	private boolean colorSwitch;
 
 	Paint black = Paint.valueOf("black"); // Color needed to repaint squares
-	private ArrayList<Rectangle> rects = new ArrayList<Rectangle>(16); // arraylist
-																		// of
-																		// the
-																		// rectangles
-																		// used
-
+	private ArrayList<Rectangle> rects = new ArrayList<Rectangle>(16); 
 	// audio clip to be used to play
 	Timer timee = new Timer(); // a timer to do the light show!
 
@@ -132,8 +128,6 @@ public class Controller
 			color = "blue";
 		else if (greenColor.isSelected())
 			color = "green";
-		else if (pinkColor.isSelected())
-			color = "pink";
 		else if (rainbowColor.isSelected())
 		{
 			setColorSwitch(true);
@@ -146,6 +140,7 @@ public class Controller
 	public void makeTime(ActionEvent event)
 	{
 		mainFile = new AudioFile(getSelectedFile());
+		nameText.setText(mainFile.getName());
 		Paint currentPaint = Paint.valueOf(paintColor());
 		btn1.setDisable(true);
 		btn2.setDisable(false);
@@ -153,7 +148,7 @@ public class Controller
 		rects = fillArray();
 		int pulseVals[] = pulseVal();
 		Paint[] currentPaints = { Paint.valueOf("red"), Paint.valueOf("orange"), Paint.valueOf("yellow"),
-				Paint.valueOf("green"), Paint.valueOf("blue"), Paint.valueOf("purple") };
+				Paint.valueOf("green"), Paint.valueOf("blue"), Paint.valueOf("blueviolet"), Paint.valueOf("purple") };
 		TimerTask task = new TimerTask()
 		{
 			int count = 0;
@@ -172,7 +167,7 @@ public class Controller
 					rects.get(pulseVals[count]).setFill(currentPaint);
 				} else
 				{
-					rects.get(pulseVals[count]).setFill(currentPaints[count % 6]);
+					rects.get(pulseVals[count]).setFill(currentPaints[count % 7]);
 				}
 				count++;
 				if (count >= mainFile.getIterations())
@@ -200,7 +195,6 @@ public class Controller
 		} else if (destBtn.isSelected())
 		{
 			dest.setSpace(200);
-			;
 			return dest;
 		} else if (longLiveBtn.isSelected())
 		{
