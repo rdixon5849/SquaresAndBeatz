@@ -67,30 +67,29 @@ public class Controller
 	@FXML
 	RadioMenuItem greenColor;
 	@FXML
-	RadioMenuItem pinkColor;
-	@FXML
 	RadioMenuItem rainbowColor;
 	@FXML
-	RadioMenuItem chronosBtn;
+	RadioMenuItem song1;
 	@FXML
-	RadioMenuItem longLiveBtn;
+	RadioMenuItem song2;
 	@FXML
-	RadioMenuItem logicGateSong;
+	RadioMenuItem song3;
 	@FXML
-	RadioMenuItem destBtn;
+	RadioMenuItem song4;
 	@FXML
-	RadioMenuItem intoWav;
+	RadioMenuItem song5;
 
 	/*
 	 * The Audio file and all of its data to be used for this version only this
 	 * song works
 	 * URL resource: location of file
 	 */
-	AudioFile logicGate = new AudioFile("/music/logicGateKeeper.wav");
-	AudioFile chronos = new AudioFile("/music/chronosWav.wav");
-	AudioFile longLive = new AudioFile("/music/LongLiveTheNewFreshWav.wav");
-	AudioFile dest = new AudioFile("/music/DestatiFragments.wav");
-	AudioFile intoTheNight = new AudioFile("/music/intoTheNight.wav", 0, 200);
+	AudioFile aFile1 = new AudioFile("/music/chronosWav.wav", "Chronos");
+	AudioFile aFile2 = new AudioFile("/music/LongLiveTheNewFreshWav.wav", "Long Live");
+	AudioFile aFile3 = new AudioFile("/music/logicGateKeeper.wav", "Logic Gatekeeper");		
+	AudioFile aFile4 = new AudioFile("/music/DestatiFragments.wav", "Destati");
+	AudioFile aFile5 = new AudioFile("/music/intoTheNight.wav", 0, 200);
+	
 	AudioFile mainFile = new AudioFile();
 	private boolean colorSwitch;
 	
@@ -112,8 +111,19 @@ public class Controller
 	@FXML
 	public void initialize()
 	{
-		mainFile=new AudioFile(chronos);				
+		mainFile=new AudioFile(aFile1);
+		song1.setText(aFile1.getName());
+		song2.setText(aFile2.getName());
+		song3.setText(aFile3.getName());
+		song4.setText(aFile4.getName());
+		song5.setText(aFile5.getName());
 	}	
+	
+	//Method to be able to add a song to the list.
+	public void addSong()
+	{
+		
+	}
 	
 	//Method to determine the color of the squares
 	private String paintColor()
@@ -125,14 +135,12 @@ public class Controller
 			color = "blue";
 		else if(greenColor.isSelected())
 			color = "green";
-		else if(pinkColor.isSelected())
-			color = "pink";
 		else if(rainbowColor.isSelected())
 		{
 			setColorSwitch(true);
 		}
 		else
-			color = "yellow";
+			setColorSwitch(true);
 		return color;
 	}
 
@@ -192,27 +200,27 @@ public class Controller
 	//Method that knows what file to play
 	private AudioFile getSelectedFile() 
 	{
-		if(logicGateSong.isSelected())
+		if(song3.isSelected())
 		{
-			logicGate.setDelay(1200);
-			return  logicGate;
+			aFile3.setDelay(1200);
+			return  aFile3;
 		}
-		else if(destBtn.isSelected())
+		else if(song4.isSelected())
 		{
-			dest.setSpace(200);;
-			return dest;
+			aFile4.setSpace(200);;
+			return aFile4;
 		}
-		else if(longLiveBtn.isSelected())
+		else if(song2.isSelected())
 		{
-			longLive.setDelay(1200);
-			return longLive;
+			aFile2.setDelay(1200);
+			return aFile2;
 		}
-		else if(intoWav.isSelected())
+		else if(song5.isSelected())
 		{
-			return intoTheNight;
+			return aFile5;
 		}
 		else
-			return chronos;
+			return aFile1;
 	}
 
 	//Method to interrupt the timer and sound if you want to.
