@@ -1,9 +1,13 @@
 package application;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -11,9 +15,12 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /*
  * The controller Class that allows for the controller to communicate with the FXML document
@@ -78,7 +85,13 @@ public class Controller
 	RadioMenuItem song4;
 	@FXML
 	RadioMenuItem song5;
+	@FXML
+	MenuItem addFile;
 
+	Stage stage= new Stage();
+	
+	List<RadioMenuItem> songs = new ArrayList<RadioMenuItem>(5);
+	
 	/*
 	 * The Audio file and all of its data to be used for this version only this
 	 * song works
@@ -90,7 +103,11 @@ public class Controller
 	AudioFile aFile4 = new AudioFile("/music/DestatiFragments.wav", "Destati");
 	AudioFile aFile5 = new AudioFile("/music/intoTheNight.wav", 0, 200);
 	
+	List<AudioFile> afList = new ArrayList<AudioFile>(5);
+	
 	AudioFile mainFile = new AudioFile();
+	
+	FileChooser fileChooser = new FileChooser();
 	private boolean colorSwitch;
 	
 	Paint black = Paint.valueOf("black"); //Color needed to repaint squares
@@ -111,18 +128,56 @@ public class Controller
 	@FXML
 	public void initialize()
 	{
-		mainFile=new AudioFile(aFile1);
-		song1.setText(aFile1.getName());
-		song2.setText(aFile2.getName());
-		song3.setText(aFile3.getName());
-		song4.setText(aFile4.getName());
-		song5.setText(aFile5.getName());
+		fillLists();
+		mainFile=new AudioFile(aFile1);		
 	}	
 	
-	//Method to be able to add a song to the list.
-	public void addSong()
+	private void fillLists()
 	{
+		afList.add(aFile1);
+		afList.add(aFile2);
+		afList.add(aFile3);
+		afList.add(aFile4);
+		afList.add(aFile5);
+		songs.add(song1);
+		songs.add(song2);
+		songs.add(song3);
+		songs.add(song4);
+		songs.add(song5);
+		for(int i =0; i < afList.size(); i++)
+		{
+			songs.get(i).setText(afList.get(i).getName());
+		}
+	}
+	
+	//Method to be able to add a song to the list.
+	public void addSong(ActionEvent event)
+	{
+		File file = fileChooser.showOpenDialog(stage);
+		if(file!=null)
+		{
+			openFile(file);
+		}
 		
+		fillLists();
+	}
+	
+	private void openFile(File file)
+	{
+		//Desktop desktop = Desktop.getDesktop();
+		for(int i =0; i < afList.size(); i++)
+		{
+			if(songs.get(i).isSelected())
+			{
+			String f = file.getAbsolutePath();
+			String p=f.replace('\\', '/');
+			System.out.println(p);
+			afList.get(i).setName(p);
+			//TODO Need to load files properly
+			//AudioFile newSong=new AudioFile(p, resURL);
+			//afList.add(i, newSong);
+			}
+		}
 	}
 	
 	//Method to determine the color of the squares

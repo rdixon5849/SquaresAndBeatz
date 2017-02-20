@@ -41,6 +41,7 @@
                   <RadioMenuItem fx:id="song3" mnemonicParsing="false" text="Song3" toggleGroup="$songs" />
                   <RadioMenuItem fx:id="song4" mnemonicParsing="false" text="Song4" toggleGroup="$songs" />
                   <RadioMenuItem fx:id="song5" mnemonicParsing="false" text="Song5" toggleGroup="$songs" />
+                  <MenuItem fx:id="addFile" mnemonicParsing="false" onAction="#addSong" text="Add File..." />
                </items>
             </Menu>
         </menus>
