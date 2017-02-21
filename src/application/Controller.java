@@ -25,70 +25,38 @@ import javafx.stage.Stage;
 public class Controller
 {
 	// Definitions of FXML Objects
-	@FXML
-	Button btn1;
-	@FXML
-	Button btn2;
-	@FXML
-	Rectangle b1;
-	@FXML
-	Rectangle b2;
-	@FXML
-	Rectangle b3;
-	@FXML
-	Rectangle b4;
-	@FXML
-	Rectangle b5;
-	@FXML
-	Rectangle b6;
-	@FXML
-	Rectangle b7;
-	@FXML
-	Rectangle b8;
-	@FXML
-	Rectangle b9;
-	@FXML
-	Rectangle b10;
-	@FXML
-	Rectangle b11;
-	@FXML
-	Rectangle b12;
-	@FXML
-	Rectangle b13;
-	@FXML
-	Rectangle b14;
-	@FXML
-	Rectangle b15;
-	@FXML
-	Rectangle b16;
-	@FXML
-	RadioMenuItem redColor;
-	@FXML
-	RadioMenuItem blueColor;
-	@FXML
-	RadioMenuItem yellowColor;
-	@FXML
-	RadioMenuItem greenColor;
-	@FXML
-	RadioMenuItem rainbowColor;
-	@FXML
-	RadioMenuItem song1;
-	@FXML
-	RadioMenuItem song2;
-	@FXML
-	RadioMenuItem song3;
-	@FXML
-	RadioMenuItem song4;
-	@FXML
-	RadioMenuItem song5;
-	@FXML
-	MenuItem addFile;
-	@FXML
-	RadioMenuItem diffBtn;
-	@FXML
-	RadioMenuItem pcmBtn;
-	@FXML
-	Label nameText;
+	@FXML   Button btn1;
+	@FXML	Button btn2;
+	@FXML	Rectangle b1;
+	@FXML	Rectangle b2;
+	@FXML	Rectangle b3;
+	@FXML	Rectangle b4;
+	@FXML	Rectangle b5;
+	@FXML	Rectangle b6;
+	@FXML	Rectangle b7;
+	@FXML	Rectangle b8;
+	@FXML	Rectangle b9;
+	@FXML	Rectangle b10;
+	@FXML	Rectangle b11;
+	@FXML	Rectangle b12;
+	@FXML	Rectangle b13;
+	@FXML	Rectangle b14;
+	@FXML	Rectangle b15;
+	@FXML	Rectangle b16;
+	@FXML	RadioMenuItem redColor;
+	@FXML	RadioMenuItem blueColor;
+	@FXML	RadioMenuItem yellowColor;
+	@FXML	RadioMenuItem greenColor;
+	@FXML	RadioMenuItem rainbowColor;
+	@FXML	RadioMenuItem song1;
+	@FXML	RadioMenuItem song2;
+	@FXML	RadioMenuItem song3;
+	@FXML	RadioMenuItem song4;
+	@FXML	RadioMenuItem song5;
+	@FXML	MenuItem addFile;
+	@FXML	RadioMenuItem diffBtn;
+	@FXML	RadioMenuItem pcmBtn;
+	@FXML	Label nameText;
 
 	Stage stage= new Stage();
 	
@@ -160,8 +128,7 @@ public class Controller
 		if(file!=null)
 		{
 			openFile(file);
-		}
-		
+		}		
 		fillLists();
 	}
 	
@@ -183,8 +150,7 @@ public class Controller
 			System.out.println(p);
 			//afList.get(i).setName(p);
 			
-			AudioFile inFile = new AudioFile(p, file);
-			
+			AudioFile inFile = new AudioFile(p, file);			
 			afList.get(i).setByte_space(inFile.getByte_space());
 			afList.get(i).setClip(inFile.getClip());
 			afList.get(i).setDelay(inFile.getDelay());
@@ -215,7 +181,7 @@ public class Controller
 			setColorSwitch(true);
 		}
 		else
-			setColorSwitch(true);
+			color="yellow";
 		return color;
 	}
 
@@ -231,7 +197,6 @@ public class Controller
 		btn2.setDisable(false);
 		mainFile.getClip().play();
 		rects = fillArray();
-		// int pulseVals[] = pulseVal();
 		int pulseVals[] = PulseModes.pulseValSub(mainFile, diffBtn);
 		Paint[] currentPaints = {Paint.valueOf("red"), Paint.valueOf("orange"), Paint.valueOf("yellow"), Paint.valueOf("green"), Paint.valueOf("blue"), Paint.valueOf("purple")};
 		TimerTask task = new TimerTask()
@@ -278,17 +243,14 @@ public class Controller
 	{
 		if(song3.isSelected())
 		{
-			aFile3.setDelay(1200);
 			return  aFile3;
 		}
 		else if(song4.isSelected())
 		{
-			aFile4.setSpace(200);;
 			return aFile4;
 		}
 		else if(song2.isSelected())
 		{
-			aFile2.setDelay(1200);
 			return aFile2;
 		}
 		else if(song5.isSelected())
