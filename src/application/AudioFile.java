@@ -79,7 +79,7 @@ public class AudioFile
 		AudioFormat format = aInStream.getFormat();
 		long frames = aInStream.getFrameLength();
 		double secDuration = (frames+0.0)/format.getFrameRate();
-		setDelay(600);
+		setDelay(0);
 		setSpace(150);
 		setIterations((int)secDuration*1000/getSpace());
 		setFile_bytes((int)getFile().length());

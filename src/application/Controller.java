@@ -1,10 +1,6 @@
 package application;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -14,6 +10,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.paint.Paint;
@@ -86,6 +83,12 @@ public class Controller
 	RadioMenuItem song5;
 	@FXML
 	MenuItem addFile;
+	@FXML
+	RadioMenuItem diffBtn;
+	@FXML
+	RadioMenuItem pcmBtn;
+	@FXML
+	Label nameText;
 
 	Stage stage= new Stage();
 	
@@ -215,6 +218,7 @@ public class Controller
 	{
 		//data();
 		mainFile = new AudioFile(getSelectedFile());
+		nameText.setText(mainFile.getName());
 		Paint currentPaint = Paint
 				.valueOf(paintColor());
 		btn1.setDisable(true);
@@ -222,7 +226,7 @@ public class Controller
 		mainFile.getClip().play();
 		rects = fillArray();
 		// int pulseVals[] = pulseVal();
-		int pulseVals[] = pulseValSub();
+		int pulseVals[] = PulseModes.pulseValSub(mainFile, diffBtn);
 		Paint[] currentPaints = {Paint.valueOf("red"), Paint.valueOf("orange"), Paint.valueOf("yellow"), Paint.valueOf("green"), Paint.valueOf("blue"), Paint.valueOf("purple")};
 		TimerTask task = new TimerTask()
 		{
@@ -331,50 +335,7 @@ public class Controller
 		rects.add(b15);
 		rects.add(b16);
 		return rects;
-	}
-
-	// Like pulseVal() method but instead finds the difference between values of
-	// pulses and displays them.
-	private int[] pulseValSub()
-	{
-		byte[] byteArray = new byte[mainFile.getFile_bytes()];
-		FileInputStream fileInStream = null;
-		try
-		{
-			fileInStream = new FileInputStream(
-					mainFile.getFile());
-		} catch (FileNotFoundException e1)
-		{
-			e1.printStackTrace();
-		}
-		try
-		{
-			fileInStream.read(byteArray);
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-
-		int count = 0;
-		int value[] = new int[mainFile.getIterations() + 1];
-		for (int i = 0; i < byteArray.length; i = i
-				+ mainFile.getByte_space())
-		{
-			value[count] = (byteArray[i] + 128)
-					/ 16;
-			if (count != 0)
-			{
-				value[count] = Math.abs(
-						value[count] - value[count
-								- 1]);
-			}
-			//System.out.println(count + ": "
-				//	+ (byteArray[i] + 128) / 16);
-			count++;
-		}
-		return value;
-	}
-	
+	}	
 	
 	public boolean isColorSwitch() {
 		return colorSwitch;
