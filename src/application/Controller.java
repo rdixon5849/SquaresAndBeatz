@@ -167,12 +167,18 @@ public class Controller
 	
 	private void openFile(File file)
 	{
+		nameText.setText("");
 		//Desktop desktop = Desktop.getDesktop();
 		for(int i =0; i < afList.size(); i++)
 		{
 			if(songs.get(i).isSelected())
 			{
 			String f = file.getAbsolutePath();
+			if(!file.getAbsolutePath().endsWith("wav"))
+			{
+				nameText.setText("Wrong File Type .wav only!");
+				break;
+			}
 			String p=f.replace('\\', '/');
 			System.out.println(p);
 			//afList.get(i).setName(p);
