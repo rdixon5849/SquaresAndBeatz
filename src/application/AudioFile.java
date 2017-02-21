@@ -148,9 +148,7 @@ public class AudioFile
 		setSpace(other.getSpace());
 		setFile_bytes(other.getFile_bytes());
 		setByte_space(other.getByte_space());
-	}
-
-	
+	}	
 
 	public int getSpace() {
 		return space;
