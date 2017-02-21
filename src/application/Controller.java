@@ -4,8 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -153,6 +152,7 @@ public class Controller
 	//Method to be able to add a song to the list.
 	public void addSong(ActionEvent event)
 	{
+		interrupt(event);
 		File file = fileChooser.showOpenDialog(stage);
 		if(file!=null)
 		{
@@ -172,10 +172,21 @@ public class Controller
 			String f = file.getAbsolutePath();
 			String p=f.replace('\\', '/');
 			System.out.println(p);
-			afList.get(i).setName(p);
-			//TODO Need to load files properly
-			//AudioFile newSong=new AudioFile(p, resURL);
-			//afList.add(i, newSong);
+			//afList.get(i).setName(p);
+			
+			AudioFile inFile = new AudioFile(p, file);
+			
+			afList.get(i).setByte_space(inFile.getByte_space());
+			afList.get(i).setClip(inFile.getClip());
+			afList.get(i).setDelay(inFile.getDelay());
+			afList.get(i).setFile(inFile.getFile());
+			afList.get(i).setFile_bytes(inFile.getFile_bytes());
+			afList.get(i).setIterations(inFile.getIterations());
+			afList.get(i).setName(inFile.getName());
+			afList.get(i).setResource(inFile.getResource());
+			afList.get(i).setSong(inFile.getSong());
+			afList.get(i).setSpace(inFile.getSpace());		
+			afList.set(i, inFile);
 			}
 		}
 	}

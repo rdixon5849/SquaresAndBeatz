@@ -2,6 +2,7 @@ package application;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.sound.sampled.AudioFormat;
@@ -54,16 +55,22 @@ public class AudioFile
 		setByte_space(getFile_bytes()/getIterations());
 	}
 	
-	public AudioFile(String path, URL resource)
+	public AudioFile(String path, File file)
 	{
 		setSong(path);
-		setName(path.substring(7));
-		setResource(resource);
-		setFile((new File(resource.getPath())));
-		setClip(new AudioClip(this.resource.toString()));
+		setName(file.getName());
+		try
+		{
+			setResource(file.toURI().toURL());
+		} catch (MalformedURLException e1)
+		{
+			e1.printStackTrace();
+		}
+		setFile(file);
+		setClip(new AudioClip(getResource().toString()));
 		AudioInputStream aInStream = null;
 		try {
-			aInStream = AudioSystem.getAudioInputStream(this.file);
+			aInStream = AudioSystem.getAudioInputStream(getFile());
 		} catch (UnsupportedAudioFileException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
