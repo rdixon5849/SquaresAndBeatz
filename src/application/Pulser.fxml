@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -12,8 +9,9 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <children>
       <MenuBar layoutX="94.0" layoutY="62.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -24,31 +22,40 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Colors">
             <items>
-                  <RadioMenuItem fx:id="yellowColor" mnemonicParsing="false" selected="true" text="Yellow">
+                  <RadioMenuItem fx:id="rainbowColor" mnemonicParsing="false" selected="true" text="Rainbow!">
                      <toggleGroup>
                         <ToggleGroup fx:id="colours" />
-                     </toggleGroup>
-                  </RadioMenuItem>
+                     </toggleGroup></RadioMenuItem>
+                  <RadioMenuItem fx:id="yellowColor" mnemonicParsing="false" text="Yellow" toggleGroup="$colours" />
                   <RadioMenuItem fx:id="blueColor" mnemonicParsing="false" text="Blue" toggleGroup="$colours" />
                   <RadioMenuItem fx:id="redColor" mnemonicParsing="false" text="Red" toggleGroup="$colours" />
                   <RadioMenuItem fx:id="greenColor" mnemonicParsing="false" text="Green" toggleGroup="$colours" />
-                  <RadioMenuItem fx:id="pinkColor" mnemonicParsing="false" text="Pink" toggleGroup="$colours" />
-                  <RadioMenuItem fx:id="rainbowColor" mnemonicParsing="false" text="Rainbow!" toggleGroup="$colours" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Songs">
                <items>
-                  <RadioMenuItem fx:id="chronosBtn" mnemonicParsing="false" selected="true" text="Chronos">
+                  <RadioMenuItem fx:id="song1" mnemonicParsing="false" selected="true" text="Song1">
                      <toggleGroup>
                         <ToggleGroup fx:id="songs" />
                      </toggleGroup>
                   </RadioMenuItem>
-                  <RadioMenuItem fx:id="longLiveBtn" mnemonicParsing="false" text="Long Live the New Fresh" toggleGroup="$songs" />
-                  <RadioMenuItem fx:id="logicGateSong" mnemonicParsing="false" text="Logic Gate" toggleGroup="$songs" />
-                  <RadioMenuItem fx:id="destBtn" mnemonicParsing="false" text="Dest" toggleGroup="$songs" />
-                  <RadioMenuItem fx:id="intoWav" mnemonicParsing="false" text="Into The Night" toggleGroup="$songs" />
+                  <RadioMenuItem fx:id="song2" mnemonicParsing="false" text="Song2" toggleGroup="$songs" />
+                  <RadioMenuItem fx:id="song3" mnemonicParsing="false" text="Song3" toggleGroup="$songs" />
+                  <RadioMenuItem fx:id="song4" mnemonicParsing="false" text="Song4" toggleGroup="$songs" />
+                  <RadioMenuItem fx:id="song5" mnemonicParsing="false" text="Song5" toggleGroup="$songs" />
+                  <MenuItem fx:id="addFile" mnemonicParsing="false" onAction="#addSong" text="Add File..." />
                </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Functions">
+               <items>
+                  <RadioMenuItem fx:id="pcmBtn" mnemonicParsing="false" selected="true" text="Standard PCM">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="funcs" />
+                     </toggleGroup>
+                  </RadioMenuItem>
+                  <RadioMenuItem fx:id="diffBtn" mnemonicParsing="false" text="Differental PCM" toggleGroup="$funcs" />
+               </items>
+</Menu>
         </menus>
       </MenuBar>
       <Rectangle fx:id="b1" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="60.0" layoutY="120.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
@@ -69,5 +76,11 @@
       <Rectangle fx:id="b16" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="300.0" layoutY="360.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
       <Button fx:id="btn1" defaultButton="true" layoutX="166.0" layoutY="478.0" mnemonicParsing="false" onAction="#makeTime" text="Play Song" />
       <Button fx:id="btn2" disable="true" layoutX="182.0" layoutY="527.0" mnemonicParsing="false" onAction="#interrupt" text="End" />
+      <Label fx:id="nameText" alignment="CENTER" layoutX="173.0" layoutY="50.0" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+     
    </children>
 </AnchorPane>

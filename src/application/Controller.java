@@ -1,9 +1,8 @@
 package application;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -11,9 +10,13 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /*
  * The controller Class that allows for the controller to communicate with the FXML document
@@ -67,31 +70,46 @@ public class Controller
 	@FXML
 	RadioMenuItem greenColor;
 	@FXML
-	RadioMenuItem pinkColor;
-	@FXML
 	RadioMenuItem rainbowColor;
 	@FXML
-	RadioMenuItem chronosBtn;
+	RadioMenuItem song1;
 	@FXML
-	RadioMenuItem longLiveBtn;
+	RadioMenuItem song2;
 	@FXML
-	RadioMenuItem logicGateSong;
+	RadioMenuItem song3;
 	@FXML
-	RadioMenuItem destBtn;
+	RadioMenuItem song4;
 	@FXML
-	RadioMenuItem intoWav;
+	RadioMenuItem song5;
+	@FXML
+	MenuItem addFile;
+	@FXML
+	RadioMenuItem diffBtn;
+	@FXML
+	RadioMenuItem pcmBtn;
+	@FXML
+	Label nameText;
 
+	Stage stage= new Stage();
+	
+	List<RadioMenuItem> songs = new ArrayList<RadioMenuItem>(5);
+	
 	/*
 	 * The Audio file and all of its data to be used for this version only this
 	 * song works
 	 * URL resource: location of file
 	 */
-	AudioFile logicGate = new AudioFile("/music/logicGateKeeper.wav");
-	AudioFile chronos = new AudioFile("/music/chronosWav.wav");
-	AudioFile longLive = new AudioFile("/music/LongLiveTheNewFreshWav.wav");
-	AudioFile dest = new AudioFile("/music/DestatiFragments.wav");
-	AudioFile intoTheNight = new AudioFile("/music/intoTheNight.wav", 0, 200);
+	AudioFile aFile1 = new AudioFile("/music/chronosWav.wav", "Chronos");
+	AudioFile aFile2 = new AudioFile("/music/LongLiveTheNewFreshWav.wav", "Long Live");
+	AudioFile aFile3 = new AudioFile("/music/logicGateKeeper.wav", "Logic Gatekeeper");		
+	AudioFile aFile4 = new AudioFile("/music/DestatiFragments.wav", "Destati");
+	AudioFile aFile5 = new AudioFile("/music/intoTheNight.wav", 0, 200);
+	
+	List<AudioFile> afList = new ArrayList<AudioFile>(5);
+	
 	AudioFile mainFile = new AudioFile();
+	
+	FileChooser fileChooser = new FileChooser();
 	private boolean colorSwitch;
 	
 	Paint black = Paint.valueOf("black"); //Color needed to repaint squares
@@ -112,8 +130,75 @@ public class Controller
 	@FXML
 	public void initialize()
 	{
-		mainFile=new AudioFile(chronos);				
+		fillLists();
+		mainFile=new AudioFile(aFile1);		
 	}	
+	
+	private void fillLists()
+	{
+		afList.add(aFile1);
+		afList.add(aFile2);
+		afList.add(aFile3);
+		afList.add(aFile4);
+		afList.add(aFile5);
+		songs.add(song1);
+		songs.add(song2);
+		songs.add(song3);
+		songs.add(song4);
+		songs.add(song5);
+		for(int i =0; i < afList.size(); i++)
+		{
+			songs.get(i).setText(afList.get(i).getName());
+		}
+	}
+	
+	//Method to be able to add a song to the list.
+	public void addSong(ActionEvent event)
+	{
+		interrupt(event);
+		File file = fileChooser.showOpenDialog(stage);
+		if(file!=null)
+		{
+			openFile(file);
+		}
+		
+		fillLists();
+	}
+	
+	private void openFile(File file)
+	{
+		nameText.setText("");
+		//Desktop desktop = Desktop.getDesktop();
+		for(int i =0; i < afList.size(); i++)
+		{
+			if(songs.get(i).isSelected())
+			{
+			String f = file.getAbsolutePath();
+			if(!file.getAbsolutePath().endsWith("wav"))
+			{
+				nameText.setText("Wrong File Type .wav only!");
+				break;
+			}
+			String p=f.replace('\\', '/');
+			System.out.println(p);
+			//afList.get(i).setName(p);
+			
+			AudioFile inFile = new AudioFile(p, file);
+			
+			afList.get(i).setByte_space(inFile.getByte_space());
+			afList.get(i).setClip(inFile.getClip());
+			afList.get(i).setDelay(inFile.getDelay());
+			afList.get(i).setFile(inFile.getFile());
+			afList.get(i).setFile_bytes(inFile.getFile_bytes());
+			afList.get(i).setIterations(inFile.getIterations());
+			afList.get(i).setName(inFile.getName());
+			afList.get(i).setResource(inFile.getResource());
+			afList.get(i).setSong(inFile.getSong());
+			afList.get(i).setSpace(inFile.getSpace());		
+			afList.set(i, inFile);
+			}
+		}
+	}
 	
 	//Method to determine the color of the squares
 	private String paintColor()
@@ -125,14 +210,12 @@ public class Controller
 			color = "blue";
 		else if(greenColor.isSelected())
 			color = "green";
-		else if(pinkColor.isSelected())
-			color = "pink";
 		else if(rainbowColor.isSelected())
 		{
 			setColorSwitch(true);
 		}
 		else
-			color = "yellow";
+			setColorSwitch(true);
 		return color;
 	}
 
@@ -141,6 +224,7 @@ public class Controller
 	{
 		//data();
 		mainFile = new AudioFile(getSelectedFile());
+		nameText.setText(mainFile.getName());
 		Paint currentPaint = Paint
 				.valueOf(paintColor());
 		btn1.setDisable(true);
@@ -148,7 +232,7 @@ public class Controller
 		mainFile.getClip().play();
 		rects = fillArray();
 		// int pulseVals[] = pulseVal();
-		int pulseVals[] = pulseValSub();
+		int pulseVals[] = PulseModes.pulseValSub(mainFile, diffBtn);
 		Paint[] currentPaints = {Paint.valueOf("red"), Paint.valueOf("orange"), Paint.valueOf("yellow"), Paint.valueOf("green"), Paint.valueOf("blue"), Paint.valueOf("purple")};
 		TimerTask task = new TimerTask()
 		{
@@ -192,27 +276,27 @@ public class Controller
 	//Method that knows what file to play
 	private AudioFile getSelectedFile() 
 	{
-		if(logicGateSong.isSelected())
+		if(song3.isSelected())
 		{
-			logicGate.setDelay(1200);
-			return  logicGate;
+			aFile3.setDelay(1200);
+			return  aFile3;
 		}
-		else if(destBtn.isSelected())
+		else if(song4.isSelected())
 		{
-			dest.setSpace(200);;
-			return dest;
+			aFile4.setSpace(200);;
+			return aFile4;
 		}
-		else if(longLiveBtn.isSelected())
+		else if(song2.isSelected())
 		{
-			longLive.setDelay(1200);
-			return longLive;
+			aFile2.setDelay(1200);
+			return aFile2;
 		}
-		else if(intoWav.isSelected())
+		else if(song5.isSelected())
 		{
-			return intoTheNight;
+			return aFile5;
 		}
 		else
-			return chronos;
+			return aFile1;
 	}
 
 	//Method to interrupt the timer and sound if you want to.
@@ -257,50 +341,7 @@ public class Controller
 		rects.add(b15);
 		rects.add(b16);
 		return rects;
-	}
-
-	// Like pulseVal() method but instead finds the difference between values of
-	// pulses and displays them.
-	private int[] pulseValSub()
-	{
-		byte[] byteArray = new byte[mainFile.getFile_bytes()];
-		FileInputStream fileInStream = null;
-		try
-		{
-			fileInStream = new FileInputStream(
-					mainFile.getFile());
-		} catch (FileNotFoundException e1)
-		{
-			e1.printStackTrace();
-		}
-		try
-		{
-			fileInStream.read(byteArray);
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-
-		int count = 0;
-		int value[] = new int[mainFile.getIterations() + 1];
-		for (int i = 0; i < byteArray.length; i = i
-				+ mainFile.getByte_space())
-		{
-			value[count] = (byteArray[i] + 128)
-					/ 16;
-			if (count != 0)
-			{
-				value[count] = Math.abs(
-						value[count] - value[count
-								- 1]);
-			}
-			//System.out.println(count + ": "
-				//	+ (byteArray[i] + 128) / 16);
-			count++;
-		}
-		return value;
-	}
-	
+	}	
 	
 	public boolean isColorSwitch() {
 		return colorSwitch;
