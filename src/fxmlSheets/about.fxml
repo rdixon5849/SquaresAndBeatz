@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="300.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="270.0" text="Shapez and Beatz" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="44.0" prefHeight="44.0" prefWidth="270.0" text="1. Select a Song from your file system in from the song menu." textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="88.0" prefHeight="62.0" prefWidth="270.0" text="2. Change the space between the appearance of the shapes with the options menu." textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="150.0" prefHeight="44.0" prefWidth="270.0" text="3. Choose the color from the colors menu, Rainbow will cycle through." textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="194.0" prefHeight="62.0" prefWidth="270.0" text="4. The functions menu chooses the placement of the squares when music played." textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="256.0" prefHeight="44.0" prefWidth="270.0" text="5. When you have selected your song and option press the Play Song button." textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="300.0" prefHeight="30.0" prefWidth="270.0" text="6.  Press the End button to end the song." textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
