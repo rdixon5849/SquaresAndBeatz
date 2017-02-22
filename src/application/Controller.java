@@ -12,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -26,8 +25,8 @@ import javafx.stage.Stage;
 public class Controller
 {
 	// Definitions of FXML Objects
-	@FXML   Button btn1;
-	@FXML	Button btn2;
+	@FXML   Button playBtn;
+	@FXML	Button endBtn;
 	@FXML	Rectangle b1;
 	@FXML	Rectangle b2;
 	@FXML	Rectangle b3;
@@ -58,37 +57,31 @@ public class Controller
 	@FXML	RadioMenuItem diffBtn;
 	@FXML	RadioMenuItem pcmBtn;
 	@FXML	Label nameText;
-	@FXML	Button pauseBtn;
 
-	Stage stage= new Stage();
-	
+	Timer timee = new Timer(); //a timer to do the light show!
+	Stage stage= new Stage();	
 	List<RadioMenuItem> songs = new ArrayList<RadioMenuItem>(5);
+	List<AudioFile> afList = new ArrayList<AudioFile>(5);
 	
 	/*
 	 * The Audio file and all of its data to be used for this version only this
 	 * song works
 	 * URL resource: location of file
 	 */
-	AudioFile aFile1 = new AudioFile("/music/chronosWav.wav", "Chronos");
-	AudioFile aFile2 = new AudioFile("/music/LongLiveTheNewFreshWav.wav", "Long Live");
-	AudioFile aFile3 = new AudioFile("/music/logicGateKeeper.wav", "Logic Gatekeeper");		
-	AudioFile aFile4 = new AudioFile("/music/DestatiFragments.wav", "Destati");
-	AudioFile aFile5 = new AudioFile("/music/intoTheNight.wav", 0, 200);
-	
-	List<AudioFile> afList = new ArrayList<AudioFile>(5);
+	AudioFile aFile1 = new AudioFile();
+	AudioFile aFile2 = new AudioFile();
+	AudioFile aFile3 = new AudioFile();		
+	AudioFile aFile4 = new AudioFile();
+	AudioFile aFile5 = new AudioFile();		
 	
 	AudioFile mainFile = new AudioFile();
 	
 	FileChooser fileChooser = new FileChooser();
 	private boolean colorSwitch;
-	private boolean isPaused;
 	
 	Paint black = Paint.valueOf("black"); //Color needed to repaint squares
 	private ArrayList<Rectangle> rects = new ArrayList<Rectangle>(
 			16); //arraylist of the rectangles used
-
-	  //audio clip to be used to play
-	Timer timee = new Timer(); //a timer to do the light show!
 
 	//Method to stop sound from continuing after application closes
 	@FXML
@@ -120,6 +113,10 @@ public class Controller
 		for(int i =0; i < afList.size(); i++)
 		{
 			songs.get(i).setText(afList.get(i).getName());
+			if(afList.get(i).getFile()==null)
+			{
+				songs.get(i).setText("<empty>");
+			}
 		}
 	}
 	
@@ -138,7 +135,6 @@ public class Controller
 	private void openFile(File file)
 	{
 		nameText.setText("");
-		//Desktop desktop = Desktop.getDesktop();
 		for(int i =0; i < afList.size(); i++)
 		{
 			if(songs.get(i).isSelected())
@@ -150,10 +146,7 @@ public class Controller
 				break;
 			}
 			String p=f.replace('\\', '/');
-			System.out.println(p);
-			//afList.get(i).setName(p);
-			
-			AudioFile inFile = new AudioFile(p, file);			
+			AudioFile inFile = new AudioFile(p, file);	
 			afList.get(i).setByte_space(inFile.getByte_space());
 			afList.get(i).setClip(inFile.getClip());
 			afList.get(i).setDelay(inFile.getDelay());
@@ -191,14 +184,17 @@ public class Controller
 	//Method that runs the code and makes the lights light up
 	public void makeTime(ActionEvent event)
 	{
-		setPaused(false);
-		//data();
 		mainFile = new AudioFile(getSelectedFile());
+		if(mainFile.getFile()==null)
+		{
+			nameText.setText("Song value is empty.");
+			return;
+		}
 		nameText.setText(mainFile.getName());
 		Paint currentPaint = Paint
 				.valueOf(paintColor());
-		btn1.setDisable(true);
-		btn2.setDisable(false);
+		playBtn.setDisable(true);
+		endBtn.setDisable(false);
 		mainFile.getClip().play();
 		rects = fillArray();
 		int pulseVals[] = PulseModes.pulseValSub(mainFile, diffBtn);
@@ -226,7 +222,6 @@ public class Controller
 					rects.get(pulseVals[count]).setFill(currentPaints[count%6]);
 				}
 				
-//				songBar.setProgress((double)count/mainFile.getIterations());
 				count++;
 				if (count >= mainFile.getIterations())
 				{
@@ -270,6 +265,10 @@ public class Controller
 	//Method to interrupt the timer and sound if you want to.
 	public void interrupt(ActionEvent event)
 	{
+		if(mainFile.getFile()==null)
+		{
+			return;
+		}
 		timee.cancel();
 		for (Rectangle rect : rects)
 		{
@@ -279,8 +278,8 @@ public class Controller
 			}
 		}
 		mainFile.getClip().stop();
-		btn1.setDisable(false);
-		btn2.setDisable(true);
+		playBtn.setDisable(false);
+		endBtn.setDisable(true);
 	}
 
 	//simple close for File -> Close button
@@ -317,14 +316,6 @@ public class Controller
 
 	public void setColorSwitch(boolean colorSwitch) {
 		this.colorSwitch = colorSwitch;
-	}
-
-	public boolean isPaused() {
-		return isPaused;
-	}
-
-	public void setPaused(boolean isPaused) {
-		this.isPaused = isPaused;
 	}
 
 }
