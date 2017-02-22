@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -57,6 +58,7 @@ public class Controller
 	@FXML	RadioMenuItem diffBtn;
 	@FXML	RadioMenuItem pcmBtn;
 	@FXML	Label nameText;
+	@FXML	Button pauseBtn;
 
 	Stage stage= new Stage();
 	
@@ -79,6 +81,7 @@ public class Controller
 	
 	FileChooser fileChooser = new FileChooser();
 	private boolean colorSwitch;
+	private boolean isPaused;
 	
 	Paint black = Paint.valueOf("black"); //Color needed to repaint squares
 	private ArrayList<Rectangle> rects = new ArrayList<Rectangle>(
@@ -99,7 +102,7 @@ public class Controller
 	public void initialize()
 	{
 		fillLists();
-		mainFile=new AudioFile(aFile1);		
+		mainFile=new AudioFile(aFile1);	
 	}	
 	
 	private void fillLists()
@@ -188,6 +191,7 @@ public class Controller
 	//Method that runs the code and makes the lights light up
 	public void makeTime(ActionEvent event)
 	{
+		setPaused(false);
 		//data();
 		mainFile = new AudioFile(getSelectedFile());
 		nameText.setText(mainFile.getName());
@@ -221,6 +225,8 @@ public class Controller
 				{
 					rects.get(pulseVals[count]).setFill(currentPaints[count%6]);
 				}
+				
+//				songBar.setProgress((double)count/mainFile.getIterations());
 				count++;
 				if (count >= mainFile.getIterations())
 				{
@@ -311,6 +317,14 @@ public class Controller
 
 	public void setColorSwitch(boolean colorSwitch) {
 		this.colorSwitch = colorSwitch;
+	}
+
+	public boolean isPaused() {
+		return isPaused;
+	}
+
+	public void setPaused(boolean isPaused) {
+		this.isPaused = isPaused;
 	}
 
 }

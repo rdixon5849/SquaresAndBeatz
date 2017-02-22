@@ -74,8 +74,8 @@
       <Rectangle fx:id="b14" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="140.0" layoutY="360.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
       <Rectangle fx:id="b15" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="220.0" layoutY="360.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
       <Rectangle fx:id="b16" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="300.0" layoutY="360.0" smooth="false" stroke="WHITE" strokeType="INSIDE" width="50.0" />
-      <Button fx:id="btn1" defaultButton="true" layoutX="166.0" layoutY="478.0" mnemonicParsing="false" onAction="#makeTime" text="Play Song" />
-      <Button fx:id="btn2" disable="true" layoutX="182.0" layoutY="527.0" mnemonicParsing="false" onAction="#interrupt" text="End" />
+      <Button fx:id="btn1" defaultButton="true" layoutX="166.0" layoutY="467.0" mnemonicParsing="false" onAction="#makeTime" text="Play Song" />
+      <Button fx:id="btn2" disable="true" layoutX="182.0" layoutY="547.0" mnemonicParsing="false" onAction="#interrupt" text="End" />
       <Label fx:id="nameText" alignment="CENTER" layoutX="173.0" layoutY="50.0" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
          <font>
             <Font size="24.0" />
