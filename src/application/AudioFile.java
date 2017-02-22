@@ -19,7 +19,6 @@ public class AudioFile
 	private URL resource; //url of song
 	private File file; //file name
 	private AudioClip clip; //audio clip
-	private int delay; //the delay necessary for the song and colors to match
 	private int iterations; //the space of how many spaces in the array to be skipped and used
 	private int space; //Space between when the lights will be shown
 	private int file_bytes; //File Size
@@ -48,14 +47,13 @@ public class AudioFile
 		AudioFormat format = aInStream.getFormat();
 		long frames = aInStream.getFrameLength();
 		double secDuration = (frames+0.0)/format.getFrameRate();
-		setDelay(600);
 		setSpace(150);
 		setIterations((int)secDuration*1000/getSpace());
 		setFile_bytes((int)getFile().length());
 		setByte_space(getFile_bytes()/getIterations());
 	}
 	
-	public AudioFile(String path, File file)
+	public AudioFile(String path, File file, int space)
 	{
 		setSong(path);
 		setName(file.getName());
@@ -79,8 +77,7 @@ public class AudioFile
 		AudioFormat format = aInStream.getFormat();
 		long frames = aInStream.getFrameLength();
 		double secDuration = (frames+0.0)/format.getFrameRate();
-		setDelay(0);
-		setSpace(150);
+		setSpace(space);
 		setIterations((int)secDuration*1000/getSpace());
 		setFile_bytes((int)getFile().length());
 		setByte_space(getFile_bytes()/getIterations());
@@ -104,33 +101,7 @@ public class AudioFile
 		AudioFormat format = aInStream.getFormat();
 		long frames = aInStream.getFrameLength();
 		double secDuration = (frames+0.0)/format.getFrameRate();
-		setDelay(600);
 		setSpace(150);
-		setIterations((int)secDuration*1000/getSpace());
-		setFile_bytes((int)getFile().length());
-		setByte_space(getFile_bytes()/getIterations());
-	}
-	
-	public AudioFile(String path, int delay, int space)
-	{
-		setSong(path);
-		setName(path.substring(7));
-		setResource(getClass().getResource(getSong()));
-		setFile((new File(this.resource.getPath())));
-		setClip(new AudioClip(this.resource.toString()));
-		AudioInputStream aInStream = null;
-		try {
-			aInStream = AudioSystem.getAudioInputStream(this.file);
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		AudioFormat format = aInStream.getFormat();
-		long frames = aInStream.getFrameLength();
-		double secDuration = (frames+0.0)/format.getFrameRate();
-		setDelay(delay);
-		setSpace(space);
 		setIterations((int)secDuration*1000/getSpace());
 		setFile_bytes((int)getFile().length());
 		setByte_space(getFile_bytes()/getIterations());
@@ -143,11 +114,35 @@ public class AudioFile
 		setResource(other.getResource());
 		setFile(other.getFile());
 		setClip(other.getClip());
-		setDelay(other.getDelay());
 		setIterations(other.getIterations());
 		setSpace(other.getSpace());
 		setFile_bytes(other.getFile_bytes());
 		setByte_space(other.getByte_space());
+	}
+	
+	public AudioFile(AudioFile other, int space)
+	{
+		setSong(other.getSong());
+		setName(other.getName());
+		setResource(other.getResource());
+		setFile(other.getFile());
+		setClip(other.getClip());
+		AudioInputStream aInStream = null;
+		try {
+			aInStream = AudioSystem.getAudioInputStream(this.file);
+		} catch (UnsupportedAudioFileException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		AudioFormat format = aInStream.getFormat();
+		long frames = aInStream.getFrameLength();
+		double secDuration = (frames+0.0)/format.getFrameRate();
+		setSpace(space);
+		setIterations((int)secDuration*1000/getSpace());
+		setFile_bytes((int)getFile().length());
+		setByte_space(getFile_bytes()/getIterations());
+		
 	}
 
 	public int getSpace() {
@@ -212,14 +207,6 @@ public class AudioFile
 
 	public void setSong(String song) {
 		this.song = song;
-	}
-	
-	public int getDelay() {
-		return delay;
-	}
-
-	public void setDelay(int delay) {
-		this.delay = delay;
 	}
 
 	public String getName() {

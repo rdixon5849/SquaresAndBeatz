@@ -14,20 +14,13 @@ import javafx.stage.Stage;
 public class Main extends Application
 {
 	@Override
-	public void start(
-			Stage primaryStage)
-	{
+	public void start(Stage primaryStage) {
 		try
 		{
-			AnchorPane page = (AnchorPane) FXMLLoader.load(Main.class.getResource("Pulser.fxml"));
+			AnchorPane page = (AnchorPane) FXMLLoader.load(Main.class.getResource("/fxmlSheets/Pulser.fxml"));
 			Scene scene = new Scene(page);
-			scene.getStylesheets()
-					.add(getClass()
-							.getResource(
-									"application.css")
-							.toExternalForm());
-			primaryStage
-					.setScene(scene);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setScene(scene);
 			primaryStage.show();
 			primaryStage.getIcons().add(new Image("/images/SquaresAndBeats.png"));
 			primaryStage.setTitle("Squares and Beats");
@@ -38,15 +31,11 @@ public class Main extends Application
 	}
 
 	@Override
-	public void stop()
-	{
+	public void stop() {
 		System.exit(0);
 	}
-	
-	public static void main(
-			String[] args)
-	{
+
+	public static void main(String[] args) {
 		launch(args);
 	}
 }
-

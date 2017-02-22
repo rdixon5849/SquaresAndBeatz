@@ -1,6 +1,7 @@
 package application;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -9,14 +10,20 @@ import java.util.TimerTask;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /*
  * The controller Class that allows for the controller to communicate with the FXML document
@@ -53,6 +60,9 @@ public class Controller
 	@FXML	RadioMenuItem song3;
 	@FXML	RadioMenuItem song4;
 	@FXML	RadioMenuItem song5;
+	@FXML	RadioMenuItem oneFifty;
+	@FXML	RadioMenuItem twoHun;
+	@FXML	RadioMenuItem twoFifty;
 	@FXML	MenuItem addFile;
 	@FXML	RadioMenuItem diffBtn;
 	@FXML	RadioMenuItem pcmBtn;
@@ -132,6 +142,28 @@ public class Controller
 		fillLists();
 	}
 	
+	public void about(ActionEvent event)
+	{		
+		AnchorPane root;
+		Stage abtStage = new Stage();
+		abtStage.initStyle(StageStyle.UTILITY);
+		abtStage.initModality(Modality.APPLICATION_MODAL);		
+		abtStage.setAlwaysOnTop(true);
+		try
+		{
+			root = (AnchorPane)FXMLLoader.load(getClass().getClassLoader().getResource("fxmlSheets/about.fxml"));
+			Scene abtScene = new Scene(root);
+			abtStage.setScene(abtScene);
+			abtStage.getIcons().add(new Image("/images/SquaresAndBeats.png"));
+			abtStage.setTitle("About");
+			abtStage.showAndWait();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	private void openFile(File file)
 	{
 		nameText.setText("");
@@ -146,10 +178,9 @@ public class Controller
 				break;
 			}
 			String p=f.replace('\\', '/');
-			AudioFile inFile = new AudioFile(p, file);	
+			AudioFile inFile = new AudioFile(p, file, getSpace());	
 			afList.get(i).setByte_space(inFile.getByte_space());
 			afList.get(i).setClip(inFile.getClip());
-			afList.get(i).setDelay(inFile.getDelay());
 			afList.get(i).setFile(inFile.getFile());
 			afList.get(i).setFile_bytes(inFile.getFile_bytes());
 			afList.get(i).setIterations(inFile.getIterations());
@@ -162,6 +193,22 @@ public class Controller
 		}
 	}
 	
+	private int getSpace() 
+	{
+		if(twoHun.isSelected())
+		{
+			return 200;
+		}
+		else if(twoFifty.isSelected())
+		{
+			return 250;
+		}
+		else
+		{
+			return 150;
+		}
+	}
+
 	//Method to determine the color of the squares
 	private String paintColor()
 	{
@@ -184,13 +231,14 @@ public class Controller
 	//Method that runs the code and makes the lights light up
 	public void makeTime(ActionEvent event)
 	{
-		mainFile = new AudioFile(getSelectedFile());
-		if(mainFile.getFile()==null)
+		if(getSelectedFile().getFile()==null)
 		{
 			nameText.setText("Song value is empty.");
 			return;
 		}
+		mainFile = new AudioFile(getSelectedFile(), getSpace());		
 		nameText.setText(mainFile.getName());
+		setColorSwitch(false);
 		Paint currentPaint = Paint
 				.valueOf(paintColor());
 		playBtn.setDisable(true);
@@ -235,7 +283,7 @@ public class Controller
 
 		};
 		timee = new Timer();
-		timee.schedule(task, (long) mainFile.getDelay(),
+		timee.schedule(task, (long) 0,
 				(long) mainFile.getSpace());
 	}
 

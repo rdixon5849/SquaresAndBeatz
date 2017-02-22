@@ -17,19 +17,8 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
+                  <MenuItem mnemonicParsing="false" onAction="#about" text="About" />
               <MenuItem mnemonicParsing="false" onAction="#onClose" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Colors">
-            <items>
-                  <RadioMenuItem fx:id="rainbowColor" mnemonicParsing="false" selected="true" text="Rainbow!">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="colours" />
-                     </toggleGroup></RadioMenuItem>
-                  <RadioMenuItem fx:id="yellowColor" mnemonicParsing="false" text="Yellow" toggleGroup="$colours" />
-                  <RadioMenuItem fx:id="blueColor" mnemonicParsing="false" text="Blue" toggleGroup="$colours" />
-                  <RadioMenuItem fx:id="redColor" mnemonicParsing="false" text="Red" toggleGroup="$colours" />
-                  <RadioMenuItem fx:id="greenColor" mnemonicParsing="false" text="Green" toggleGroup="$colours" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Songs">
@@ -46,14 +35,36 @@
                   <MenuItem fx:id="addFile" mnemonicParsing="false" onAction="#addSong" text="Add File..." />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Functions">
-               <items>
-                  <RadioMenuItem fx:id="pcmBtn" mnemonicParsing="false" selected="true" text="Standard PCM">
+            <Menu mnemonicParsing="false" text="Options">
+              <items>
+                  <RadioMenuItem fx:id="oneFifty" mnemonicParsing="false" selected="true" text="150ms">
                      <toggleGroup>
-                        <ToggleGroup fx:id="funcs" />
+                        <ToggleGroup fx:id="ms" />
                      </toggleGroup>
                   </RadioMenuItem>
-                  <RadioMenuItem fx:id="diffBtn" mnemonicParsing="false" text="Differental PCM" toggleGroup="$funcs" />
+                  <RadioMenuItem fx:id="twoHun" mnemonicParsing="false" text="200ms" toggleGroup="$ms" />
+                  <RadioMenuItem fx:id="twoFifty" mnemonicParsing="false" text="250ms" toggleGroup="$ms" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Colors">
+            <items>
+                  <RadioMenuItem fx:id="rainbowColor" mnemonicParsing="false" selected="true" text="Rainbow!">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="colours" />
+                     </toggleGroup></RadioMenuItem>
+                  <RadioMenuItem fx:id="yellowColor" mnemonicParsing="false" text="Yellow" toggleGroup="$colours" />
+                  <RadioMenuItem fx:id="blueColor" mnemonicParsing="false" text="Blue" toggleGroup="$colours" />
+                  <RadioMenuItem fx:id="redColor" mnemonicParsing="false" text="Red" toggleGroup="$colours" />
+                  <RadioMenuItem fx:id="greenColor" mnemonicParsing="false" text="Green" toggleGroup="$colours" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Functions">
+               <items>
+                  <RadioMenuItem fx:id="diffBtn" mnemonicParsing="false" selected="true" text="Differental PCM">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="funcs" />
+                     </toggleGroup></RadioMenuItem>
+                  <RadioMenuItem fx:id="pcmBtn" mnemonicParsing="false" text="Standard PCM" toggleGroup="$funcs" />
                </items>
 </Menu>
         </menus>
