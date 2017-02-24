@@ -24,6 +24,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javazoom.jl.converter.Converter;
+import javazoom.jl.decoder.JavaLayerException;
 
 /*
  * The controller Class that allows for the controller to communicate with the FXML document
@@ -172,6 +174,20 @@ public class Controller
 			if(songs.get(i).isSelected())
 			{
 			String f = file.getAbsolutePath();
+			String newF = f+".wav";
+			if(file.getAbsolutePath().endsWith(".mp3"))
+			{
+				Converter convert = new Converter();
+				try
+				{
+					convert.convert(f, newF);
+					file = new File(newF);
+				} catch (JavaLayerException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			if(!file.getAbsolutePath().endsWith("wav"))
 			{
 				nameText.setText("Wrong File Type .wav only!");
