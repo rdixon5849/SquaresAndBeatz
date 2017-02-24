@@ -83,30 +83,6 @@ public class AudioFile
 		setByte_space(getFile_bytes()/getIterations());
 	}
 	
-	public AudioFile(String path, String name)
-	{
-		setSong(path);
-		setName(name);
-		setResource(getClass().getResource(getSong()));
-		setFile((new File(this.resource.getPath())));
-		setClip(new AudioClip(this.resource.toString()));
-		AudioInputStream aInStream = null;
-		try {
-			aInStream = AudioSystem.getAudioInputStream(this.file);
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		AudioFormat format = aInStream.getFormat();
-		long frames = aInStream.getFrameLength();
-		double secDuration = (frames+0.0)/format.getFrameRate();
-		setSpace(150);
-		setIterations((int)secDuration*1000/getSpace());
-		setFile_bytes((int)getFile().length());
-		setByte_space(getFile_bytes()/getIterations());
-	}
-	
 	public AudioFile(AudioFile other)
 	{
 		setSong(other.getSong());
