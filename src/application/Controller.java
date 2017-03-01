@@ -184,7 +184,6 @@ public class Controller
 					file = new File(newF);
 				} catch (JavaLayerException e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -294,9 +293,10 @@ public class Controller
 					{
 						rect.setFill(black);
 					}
+					playBtn.setDisable(false);
+					endBtn.setDisable(true);
 				}
 			}
-
 		};
 		timee = new Timer();
 		timee.schedule(task, (long) 0,
